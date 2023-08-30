@@ -1,0 +1,10 @@
+query getShopWithWaivers($id: String!) {
+  getShop(id: $id) {
+    id
+    name
+    waivers {
+      id
+      slug
+    }
+  }
+}

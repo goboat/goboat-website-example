@@ -1,0 +1,52 @@
+query getGeneralOptions($siteId: String!, $target: String!, $languages: [String!]!) {
+  generalOptions: resource(
+    siteId: $siteId
+    target: $target
+    key: "/wp-json/rawb/v1/general"
+  ) {
+    key
+    hash
+    content
+  }
+
+  locations: resources(siteId: $siteId, target: $target, type: ["location"]) {
+    key
+    hash
+    content
+  }
+
+  header: resource(siteId: $siteId, target: $target, key: "/wp-json/rawb/v1/header") {
+    key
+    hash
+    content
+  }
+
+  footer: resource(siteId: $siteId, target: $target, key: "/wp-json/rawb/v1/footer") {
+    key
+    hash
+    content
+  }
+
+  gtm: resource(siteId: $siteId, target: $target, key: "/wp-json/rawb/v1/gtm") {
+    key
+    hash
+    content
+  }
+
+  articleTags: getArticleTags(siteId: $siteId, target: $target, languages: $languages) {
+    name
+    slug
+  }
+
+  visual: resource(siteId: $siteId, target: $target, key: "/wp-json/rawb/v1/visual") {
+    key
+    hash
+    content
+  }
+
+  translations: resource(siteId: $siteId, target: $target, key: "/wp-json/rawb/v1/translations") {
+    key
+    hash
+    content
+  }
+}

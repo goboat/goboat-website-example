@@ -1,0 +1,13 @@
+mutation submitDockTypeWaiver(
+  $bookingId: String!
+  $waiverVersionId: String!
+  $signatures: [SignatureInput!]!
+  $crewSignature: CrewSignatureInput!
+) {
+  submitDockTypeWaiver(
+    bookingId: $bookingId
+    waiverVersionId: $waiverVersionId
+    signatures: $signatures
+    crewSignature: $crewSignature
+  )
+}

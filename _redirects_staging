@@ -1,0 +1,2 @@
+/graphql https://staging.content.goboat.io/graphql 200
+/api-gateway/graphql https://staging.api.goboat.io/v2/graphql 200

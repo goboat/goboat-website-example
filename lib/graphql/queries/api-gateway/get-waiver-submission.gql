@@ -1,0 +1,23 @@
+query getWaiverSubmission($id: String!) {
+  getWaiverSubmission(id: $id) {
+    id
+    waiverId
+    waiverVersionId
+    bookingId
+    fullName
+    email
+    birthDate
+    phone
+    state
+    zip
+    minors {
+      name
+      birthDate
+    }
+    agreements {
+      name
+      accepted
+      signature
+    }
+  }
+}

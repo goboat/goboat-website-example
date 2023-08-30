@@ -1,0 +1,17 @@
+query getStaticPaths($siteId: String!, $target: String!) {
+  pages: resources(siteId: $siteId, target: $target, type: ["page"]) {
+    key
+  }
+  articles: resources(siteId: $siteId, target: $target, type: ["article"]) {
+    key
+  }
+  events: resources(siteId: $siteId, target: $target, type: ["event"]) {
+    key
+  }
+  locations: resources(siteId: $siteId, target: $target, type: ["location"]) {
+    key
+    hash
+    content
+  }
+
+}

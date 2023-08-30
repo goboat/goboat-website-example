@@ -1,0 +1,10 @@
+query getResource($siteId: String!, $target: String!, $key: String!, $type: String) {
+  resource(siteId: $siteId, target: $target, key: $key, type: $type) {
+    _id
+    key
+    hash
+    content
+    language
+    tags
+  }
+}

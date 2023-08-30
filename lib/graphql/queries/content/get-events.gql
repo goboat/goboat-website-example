@@ -1,0 +1,18 @@
+query events($offset: Int!, $languages: [String!]!, $filter: JSON, $siteId: String!) {
+  events: resources(
+    offset: $offset
+    type: ["event"]
+    limit: 3
+    languages: $languages
+    siteId: $siteId
+    target: "live"
+    order: ASC
+    filter: $filter
+  ) {
+    _id
+    key
+    content
+    date
+    hash
+  }
+}

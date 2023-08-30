@@ -1,0 +1,23 @@
+query articles(
+  $offset: Int!
+  $languages: [String!]!
+  $tags: [String!]!
+  $pageSize: Int!
+  $siteId: String!
+) {
+  articles: resources(
+    offset: $offset
+    type: ["article"]
+    limit: $pageSize
+    languages: $languages
+    siteId: $siteId
+    target: "live"
+    order: DESC
+    tags: $tags
+  ) {
+    _id
+    key
+    content
+    date
+  }
+}

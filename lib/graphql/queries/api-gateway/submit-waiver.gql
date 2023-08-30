@@ -1,0 +1,21 @@
+mutation submitWaiver( 
+  $fullName: String!
+  $email: String!
+  $waiverVersionId: String!
+  $data: WaiverData!
+  $minors: [MinorSignatureInput!]
+  $bookingId: String!
+  $agreements: [AgreementInput!]!
+) {
+  submitWaiver(
+    fullName: $fullName
+    email: $email
+    waiverVersionId: $waiverVersionId
+    data: $data
+    minors: $minors
+    bookingId: $bookingId
+    agreements: $agreements
+  ) {
+    id
+  }
+}

@@ -1,0 +1,60 @@
+query getWaiver($id: String!) {
+  getWaiver(id: $id) {
+    id
+    name
+    type
+    activeVersions {
+      language
+      content
+      id
+      fields {
+        email
+        phone
+        birthDate
+        state
+        zip
+      }
+      checkboxes {
+        name
+        text
+        signature
+      }
+      confirmationPage
+      requireMinorBirthDate
+      sharing {
+        enabled
+        heading
+        text
+        buttonText
+      }
+    }
+    versions {
+      id
+      content
+      language
+      active
+      fields {
+        email
+        phone
+        birthDate
+        state
+        zip
+      }
+      checkboxes {
+        name
+        text
+        signature
+        omitInPrint
+      }
+      confirmationPage
+      requireMinorBirthDate
+      sharing {
+        enabled
+        heading
+        text
+        buttonText
+      }
+      disableMinorSignatures
+    }
+  }
+}

@@ -1,0 +1,21 @@
+query getRelatedArticles(
+  $siteId: String!
+  $target: String!
+  $tags: [String!]!
+  $languages: [String!]!
+  $filter: JSON!
+) {
+  articles: resources(
+    siteId: $siteId
+    target: $target
+    tags: $tags
+    languages: $languages
+    limit: 4
+    filter: $filter
+    type: ["article"]
+  ) {
+    key
+    hash
+    content
+  }
+}

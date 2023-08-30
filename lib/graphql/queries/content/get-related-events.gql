@@ -1,0 +1,20 @@
+query getRelatedEvents(
+  $siteId: String!
+  $target: String!
+  $languages: [String!]!
+  $filter: JSON
+) {
+  events: resources(
+    type: ["event"]
+    limit: 4
+    languages: $languages
+    siteId: $siteId
+    target: $target
+    order: ASC
+    filter: $filter
+  ) {
+    key
+    hash
+    content
+  }
+}
