@@ -1,10 +1,7 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: [
-    '../../services/waivers-api/src/graphql/schemas/*.ts',
-    '../../services/booking-api/src/graphql/schemas/*.ts',
-  ],
+  schema: 'https://staging.api.goboat.io/v2/graphql',
   documents: './lib/graphql/queries/api-gateway/*.gql',
   generates: {
     './lib/graphql-sdk-api-gateway.ts': {

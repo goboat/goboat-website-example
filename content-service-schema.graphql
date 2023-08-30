@@ -1,0 +1,203 @@
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+scalar JSON
+
+type Query {
+  _empty: String
+
+  """Fetch a page (i.e. resource) by its path"""
+  resource(
+    """
+    The siteId is used to determine which of the multisite sites we should take the data from. When querying from React, the server will add this automatically
+    """
+    siteId: String!
+    target: String!
+    key: String
+    externalId: String
+    autopopulate: Boolean
+    flat: Boolean
+    extra: JSON
+    tags: [String]
+    type: String
+  ): Resource
+  resources(
+    """
+    The siteId is used to determine which of the multisite sites we should take the data from. When querying from React, the server will add this automatically
+    """
+    siteId: String!
+    target: String!
+    keys: [String]
+    filter: JSON
+    type: [String]
+    order: ResourceOrder
+    orderBy: ResourceOrderValues
+    limit: Int
+    offset: Int
+    extra: JSON
+    hitsTimeUnit: ResourceHitsTimeUnit
+    hitsTimeAmount: Int
+    tags: [String]
+    languages: [String]
+  ): [Resource!]!
+  resourceStatus(
+    """
+    The siteId is used to determine which of the multisite sites we should take the data from. When querying from React, the server will add this automatically
+    """
+    siteId: String!
+    targets: [String]!
+    resource: ResourceInstance!
+  ): [ResourceStatus]
+  cacheStats(
+    """
+    The siteId is used to determine which of the multisite sites we should take the data from. When querying from React, the server will add this automatically
+    """
+    siteId: String!
+    target: String!
+  ): CacheStats
+  getArticleTags(languages: [String!], target: String!, siteId: String!): [ArticleTag!]!
+}
+
+type Mutation {
+  _empty: String
+
+  """Add or update a document for a given siteId and target."""
+  upsertResource(
+    target: String
+    siteId: String!
+
+    """userInfo is needed to keep a log who changed what"""
+    userInfo: String!
+
+    """
+    This is the actual content a resource has. It should be the json you expect for a page or entry or document etc
+    """
+    resource: ResourceInstance!
+    host: String!
+  ): ResourceActionResponse
+  copyResource(
+    siteId: String!
+    externalId: String!
+    fromTarget: String
+    toTarget: String
+
+    """userInfo is needed to keep a log who changed what"""
+    userInfo: String!
+  ): ResourceActionResponse
+  deleteResource(
+    siteId: String!
+    target: String!
+    externalId: String
+    key: String
+
+    """userInfo is needed to keep a log who changed what"""
+    userInfo: String!
+  ): ResourceActionResponse
+  protectResource(
+    siteId: String!
+    target: String!
+    externalId: String!
+
+    """userInfo is needed to keep a log who changed what"""
+    userInfo: String!
+  ): ResourceActionResponse
+  unprotectResource(
+    siteId: String!
+    target: String!
+    externalId: String!
+
+    """userInfo is needed to keep a log who changed what"""
+    userInfo: String!
+  ): ResourceActionResponse
+  recreateResourceTree(
+    siteId: String!
+    target: String!
+
+    """userInfo is needed to keep a log who changed what"""
+    userInfo: String!
+  ): ResourceActionResponse
+}
+
+enum ResourceOrder {
+  ASC
+  DESC
+}
+
+enum ResourceOrderValues {
+  TYPE
+  DATE
+  EXTERNAL_ID
+  KEY
+  PARENT_ID
+}
+
+enum ResourceHitsTimeUnit {
+  MINUTE
+  HOUR
+  DAY
+  WEEK
+  MONTH
+}
+
+"""Tjena data"""
+type Resource {
+  _id: String
+  key: String
+  hash: String
+  content: JSON
+  type: String
+  date: String
+  externalId: String!
+  parentId: String
+  root: String
+  order: String
+  children: [Resource]
+  childrenFlat: [Resource]
+  tags: [String!]!
+  language: String
+}
+
+type ResourceActionResponse {
+  success: Boolean
+}
+
+type ResourceStatus {
+  target: String
+  synced: Boolean
+  comparedTo: String
+  diff: JSON
+  exists: Boolean
+}
+
+input ResourceInstance {
+  key: String
+
+  """
+  externalId is used as the unique identifier for a resource, whereas key is used ss the external identifier, usually a slug
+  """
+  externalId: String!
+  content: JSON
+  parentId: String
+  order: Int
+  type: String!
+  date: String
+  host: String
+  tags: [String]
+  language: String
+}
+
+type CacheStats {
+  count: Int
+}
+
+type ArticleTag {
+  name: String!
+  slug: String!
+}
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
